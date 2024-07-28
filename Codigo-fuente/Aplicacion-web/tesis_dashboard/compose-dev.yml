@@ -1,0 +1,67 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:16.3-alpine3.18
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - app-network
+     
+  backend:
+    build:
+      context: ./tesis_dashboard
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=${POSTGRES_HOST}
+      - DB_NAME=${POSTGRES_DATABASE}
+      - DB_PASS=${POSTGRES_PASS}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PORT=${POSTGRES_PORT}
+      - PORT=${NODE_PORT}
+      - GATEWAY_URL=${GATEWAY_URL}
+      - CLIENT_URL=${CLIENT_URL}
+    networks:
+      - app-network
+      
+  frontend:
+    build:
+      context: ./tesis_frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_BACKEND_URL=${VITE_BACKEND_URL}
+        - VITE_BASE=${VITE_BASE}
+    container_name: vue-app
+    networks:
+      - app-network
+      
+  nginx:
+    restart: always
+    container_name: nginx-app
+    build:
+      context: ./nginx
+    ports:
+      - 80:80
+      - 81:81
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db:
+  node_modules:

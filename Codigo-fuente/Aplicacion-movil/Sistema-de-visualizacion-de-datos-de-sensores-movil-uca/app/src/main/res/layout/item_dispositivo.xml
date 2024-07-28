@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#ffffff">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:id="@+id/layout"
+            android:animateLayoutChanges="true"
+            android:layout_margin="10dp"
+            android:radius="5dp"
+            android:background="@drawable/card"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/fenomeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:paddingTop="10dp"
+                android:paddingLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/ubicacionNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="22sp"
+                android:paddingTop="60dp"
+                android:paddingLeft="115dp"/>
+
+            <TextView
+                android:id="@+id/lecturaValor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textColor="#00449e"
+                android:textSize="22sp"
+                android:paddingTop="110dp"
+                android:paddingLeft="30dp"/>
+
+            <TextView
+                android:id="@+id/unidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textColor="#00449e"
+                android:textSize="22sp"
+                android:paddingTop="110dp"
+                android:paddingLeft="100dp"/>
+
+            <TextView
+                android:id="@+id/descripcion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:textColor="#00449e"
+                android:paddingTop="180dp"
+                android:paddingLeft="0dp"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/lecturaIntervalo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="18sp"
+                android:paddingTop="255dp"
+                android:paddingLeft="0dp"/>
+
+            <TextView
+                android:id="@+id/lecturaFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textStyle="italic"
+                android:textSize="18sp"
+                android:paddingTop="280dp"
+                android:paddingLeft="0dp"/>
+
+            <com.patrykandpatrick.vico.views.cartesian.CartesianChartView
+                android:id="@+id/chart_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layers="line"
+                app:showBottomAxis="true"
+                app:showStartAxis="true"
+                android:paddingTop="320dp"
+                android:paddingLeft="0dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
