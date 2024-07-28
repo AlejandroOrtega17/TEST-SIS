@@ -1,0 +1,1 @@
+# Sistema-de-recoleccion-de-datos-de-sensores-lora-uca
