@@ -55,6 +55,10 @@ let ubicaciones = [
     ubicacion_nombre: "Estacionamiento Edificio de Aulas 'B'",
     ubicacion_tipo: "Aire libre"
   },
+  {
+    ubicacion_nombre: "Centro de Recursos para el Aprendizaje y la Investigación P. Florentino Idoate, S.J.",
+    ubicacion_tipo: "Cerrado"
+  },
 ];
 
 function agregarAulas(ubicacionesExistentes){

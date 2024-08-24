@@ -6,6 +6,7 @@ export function morganFormato(tokens, req, res){
         'HTTP/' + tokens['http-version'](req, res) + '\"',
         'Status: ' + tokens.status(req, res),
         'Message: ' + (res.statusCode >= 400 ? res.statusMessage : '-'),
-        tokens['user-agent'](req, res)
+        tokens['user-agent'](req, res),
+        "Referer: " + tokens.referrer(req, res)
     ].join(', ');
 }

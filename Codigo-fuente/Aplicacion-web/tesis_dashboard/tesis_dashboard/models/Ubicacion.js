@@ -10,7 +10,7 @@ const Ubicacion = db.define('ubicacion', {
         primaryKey: true
     },
     ubicacion_nombre: {
-        type: DataTypes.STRING(60),
+        type: DataTypes.STRING,
         allowNull: false
     },
     ubicacion_tipo: {

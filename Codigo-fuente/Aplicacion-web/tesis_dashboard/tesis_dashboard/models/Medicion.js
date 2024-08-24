@@ -10,7 +10,7 @@ const Medicion = db.define('medicion', {
         primaryKey: true
     },
     medicion_fenomeno: {
-        type: DataTypes.STRING(30),
+        type: DataTypes.STRING(100),
         allowNull: false
     },
     medicion_descripcion: {

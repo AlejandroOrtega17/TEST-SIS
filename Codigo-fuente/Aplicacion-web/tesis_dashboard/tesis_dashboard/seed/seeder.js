@@ -16,12 +16,18 @@ const importData = async () => {
         await db.authenticate();
         await db.sync();
 
-        // Creación de Mediciones y Ubicaciones como promesas
-        // ya que una no depende de la otra
-        await Promise.all([
-            Medicion.bulkCreate(mediciones),
-            Ubicacion.bulkCreate(ubicaciones)
-        ]);
+	//Comprobar si las tablas están vacías
+        const medicionesExisten = await Medicion.count();
+        const ubicacionesExisten = await Ubicacion.count();
+        
+        // Insertar datos en las tablas
+        if(medicionesExisten === 0){
+            await Medicion.bulkCreate(mediciones);
+        }
+        
+        if(ubicacionesExisten === 0){
+            await Ubicacion.bulkCreate(ubicaciones);
+        }
 
         // Se cierra el proceso sin errores
         process.exit(0);
