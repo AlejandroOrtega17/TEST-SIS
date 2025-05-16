@@ -3,6 +3,7 @@ import express from 'express';
 // Importanción de middleware a usar en las distintas rutas
 import { postUplink } from '../controllers/dispositivoController.js';
 import { obtenerDatos, obtenerDatosDispositivo, lecturasEnTabla, infoDispositivo } from '../controllers/dashboardController.js';
+import { agregarUbicacion, obtenerUbicacionPorId, obtenerUbicaciones } from '../controllers/dashboardController.js';
 
 // Instancia para el enrutamiento de Express
 const router = express.Router();
@@ -22,5 +23,11 @@ router.get('/dashboard', obtenerDatos);
 router.get('/:id', obtenerDatosDispositivo);
 router.get('/:id/informacion', infoDispositivo);
 router.get('/:id/tabla', lecturasEnTabla);
+// Rutas para Ubicaciones
+router.post('/ubicaciones', agregarUbicacion);
+
+router.get('/ubicaciones/:id', obtenerUbicacionPorId);
+router.get('/ubicacionesall', obtenerUbicaciones);
+
 
 export default router;

@@ -191,6 +191,65 @@ const infoDispositivo = async (req, res) => {
     }
 }
 
+// Obtener todas las ubicaciones
+const obtenerUbicaciones = async (req, res) => {
+    try {
+        const ubicaciones = await Ubicacion.findAll({
+            attributes: ["ubicacion_id", "ubicacion_nombre", "ubicacion_tipo"],
+            order: [["ubicacion_id", "ASC"]]
+        });
+
+        if (ubicaciones.length <= 0) {
+            return res.status(404).json({ message: "No se encontraron ubicaciones" });
+        }
+
+        return res.json(ubicaciones);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Error al obtener las ubicaciones" });
+    }
+};
+
+// Agregar una nueva ubicación
+const agregarUbicacion = async (req, res) => {
+    const { ubicacion_nombre, ubicacion_tipo } = req.body;
+
+    try {
+        if (!ubicacion_nombre || !ubicacion_tipo) {
+            return res.status(400).json({ message: "Los campos nombre y tipo son obligatorios" });
+        }
+
+        const nuevaUbicacion = await Ubicacion.create({
+            ubicacion_nombre,
+            ubicacion_tipo
+        });
+
+        return res.status(201).json(nuevaUbicacion);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Error al agregar la ubicación" });
+    }
+};
+
+// Obtener una ubicación por ID
+const obtenerUbicacionPorId = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const ubicacion = await Ubicacion.findByPk(id, {
+            attributes: ["ubicacion_id", "ubicacion_nombre", "ubicacion_tipo"]
+        });
+
+        if (!ubicacion) {
+            return res.status(404).json({ message: "Ubicación no encontrada" });
+        }
+
+        return res.json(ubicacion);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Error al obtener la ubicación" });
+    }
+};
 // Función para obtener las lecturas de un dispositivo específico
 // dentro de un rango de fechas
 const lecturasEnTabla = async (req, res) => {
@@ -252,5 +311,8 @@ export {
     obtenerDatos,
     obtenerDatosDispositivo,
     infoDispositivo,
-    lecturasEnTabla
+    lecturasEnTabla,
+    obtenerUbicaciones, 
+    agregarUbicacion,
+    obtenerUbicacionPorId
 }

@@ -19,13 +19,13 @@ import router from "./routes/appRoutes.js";
 import { morganFormato } from "./utils/morganFormato.js";
 
 /*
-Se inicia ina instancia de express,
+Se inicia una instancia de express,
 junto con una variable que almacenará el puerto
 a usar a partir de una variable de entorno
 o el 3000 por defecto si no existe la variable
 */
 const app = express();
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -49,23 +49,22 @@ app.use(express.urlencoded({ extended: true }));
 let whitelist = [process.env.GATEWAY_URL, process.env.CLIENT_URL];
 const corsOptions = {
     origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
+        if (whitelist.indexOf(origin) !== -1 || !origin) {
             callback(null, true);
         } else {
-            callback(new Error('Fuera de política CORS'));
+            callback(new Error("Fuera de política CORS"));
         }
     },
     methods: "GET,POST"
-}
+};
 app.use((req, res, next) => {
-    cors(corsOptions) (req, res, (err) => {
-        if(err){
+    cors(corsOptions)(req, res, (err) => {
+        if (err) {
             res.status(403).send("Acceso no permitido");
-        }
-        else{
+        } else {
             next();
         }
-    })
+    });
 });
 
 // Se inicia la conexión a la BD
@@ -73,22 +72,18 @@ app.use((req, res, next) => {
 try {
     await db.authenticate();
     await db.sync();
-    console.log("Base de datos conectada");
+    console.log("Base de datos conectada correctamente a PostgreSQL");
 } catch (error) {
-    console.log("Error al conectar a la base de datos:\n", error);
+    console.error("Error al conectar a la base de datos:\n", error);
 }
 
 const staticContentPath = path.join(__dirname, "/front");
 app.use(express.static(staticContentPath));
 
 // Rutas que estarán disponibles en la aplicación
-// En este caso comprobará cualquier ruta que empiece con ""
-// De encontrar alguna, ejecutará el middleware asignado
 app.use("", router);
 
-// Se levanta el servidor, que estará pendiente
-// del puerto asignado en port
-// Se imprime un mensaje para saber que funcionó
+// Se levanta el servidor
 app.listen(port, () => {
-    console.log("Aplicación corriendo");
-})
+    console.log(`Aplicación corriendo en el puerto ${port}`);
+});
